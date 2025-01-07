@@ -4,6 +4,7 @@ import pokeball from "../assets/pngegg.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [active, setActive] = useState("Home");
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -31,17 +32,22 @@ const Navbar = () => {
       </div>
 
       <ul
-        className={`md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-slate-600 w-full left-0 
-    md:w-auto md:py-0 py-4 md:pl-0 pl-7 transition-all ease-in duration-500 ${
-      menuOpen ? "top-[80px] opacity-100 z-10" : "top-[-400px] opacity-0 z-[-1]"
-    } md:opacity-100`}
+        className={`md:flex md:items-center md:static absolute bg-slate-600 w-full left-0 
+    md:w-auto md:py-0 py-4 md:pl-0 pl-7 transition-all ease-in-out duration-500 ${
+      menuOpen ? "top-[80px] opacity-100 z-10" : "top-[-400px] opacity-0"
+    } md:top-auto md:opacity-100 md:z-auto`}
       >
         {navItems.map((item) => (
           <li key={item.name} className="mx-4 my-6 md:my-0">
             <Link
               to={item.path}
-              className="text-xl hover:text-yellow-200 duration-500"
-              onClick={() => setMenuOpen(false)}
+              className={`text-xl ${
+                active === item.name ? "text-red-300" : "text-white"
+              } hover:text-yellow-200 duration-500`}
+              onClick={() => {
+                setActive(item.name);
+                setMenuOpen(false);
+              }}
             >
               {item.name}
             </Link>
