@@ -49,7 +49,6 @@ const Play = () => {
     if (clickedCards.includes(clickedCard.name)) {
       setShowModal(true);
       setHighScore(Math.max(score, highScore));
-      setScore(0);
       setClickedCards([]);
     } else {
       setClickedCards([...clickedCards, clickedCard.name]);
@@ -82,7 +81,7 @@ const Play = () => {
           {shuffledPokemon.map((poke) => (
             <div
               key={poke.tileId}
-              className="bg-white shadow-md rounded-lg p-4 cursor-pointer"
+              className="bg-white shadow-lg rounded-lg p-4 cursor-pointer transition-transform duration-200 hover:scale-125"
               onClick={() => handleCardClick(poke.tileId)}
             >
               <img

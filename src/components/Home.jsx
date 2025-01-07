@@ -1,13 +1,17 @@
 import pokeball from "../assets/pngegg.png";
-import squirtle from "../assets/squirtle.png"; // Example Pokémon images
+import squirtle from "../assets/squirtle.png";
 import charmander from "../assets/charmander.png";
 import bulbasaur from "../assets/bulbasaur.png";
 
 const Home = () => {
   return (
-    <div className="p-5">
+    <div className="p-5 bg-white">
       <div className="text-center">
-        <img src={pokeball} alt="Pokeball" className="w-20 mx-auto mb-4" />
+        <img
+          src={pokeball}
+          alt="Pokeball"
+          className="w-20 mx-auto mb-4 animate-pulse"
+        />
         <h1 className="text-4xl font-bold text-slate-700">
           Welcome to Memorite!
         </h1>
@@ -43,7 +47,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="mt-10 max-w-4xl mx-auto bg-slate-100 p-6 rounded-lg shadow">
+      <div className="mt-10 max-w-4xl mx-auto bg-slate-100 p-6 rounded-lg shadow-xl">
         <h2 className="text-2xl font-semibold text-slate-700">How to Play:</h2>
         <ul className="list-disc list-inside mt-4 text-gray-600 text-lg">
           <li>Click card to select card</li>

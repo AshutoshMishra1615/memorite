@@ -69,7 +69,7 @@ const AboutUs = () => {
           </p>
           <div className="mt-6 flex justify-center space-x-4">
             <a
-              href="https://github.com/"
+              href="https://github.com/AshutoshMishra1615"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-slate-700"
@@ -77,7 +77,7 @@ const AboutUs = () => {
               <ion-icon name="logo-github" size="large"></ion-icon>
             </a>
             <a
-              href="https://twitter.com/"
+              href="https://x.com/AshuMishra1615"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-slate-700"
@@ -85,7 +85,7 @@ const AboutUs = () => {
               <ion-icon name="logo-twitter" size="large"></ion-icon>
             </a>
             <a
-              href="https://instagram.com/"
+              href="https://instagram.com/ashumishra_pyro"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-slate-700"

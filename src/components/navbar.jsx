@@ -20,7 +20,11 @@ const Navbar = () => {
     <nav className="md:flex md:justify-between md:items-center p-5 bg-slate-600 shadow text-white">
       <div className="flex justify-between items-center">
         <span className="text-2xl font-serif font-semibold">
-          <img src={pokeball} alt="Pokemon" className="h-10 inline px-2" />
+          <img
+            src={pokeball}
+            alt="Pokemon"
+            className="h-10 inline px-2 animate-bounce"
+          />
           Memorite
         </span>
         <span

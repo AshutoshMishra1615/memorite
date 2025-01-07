@@ -12,7 +12,7 @@ const Footer = () => {
 
           <div className="flex justify-center md:justify-end space-x-4">
             <a
-              href="https://github.com/"
+              href="https://github.com/AshutoshMishra1615"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white"
@@ -20,7 +20,7 @@ const Footer = () => {
               <ion-icon name="logo-github" size="large"></ion-icon>
             </a>
             <a
-              href="https://twitter.com/"
+              href="https://x.com/AshuMishra1615"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white"
@@ -28,7 +28,7 @@ const Footer = () => {
               <ion-icon name="logo-twitter" size="large"></ion-icon>
             </a>
             <a
-              href="https://instagram.com/"
+              href="https://instagram.com/ashumishra_pyro"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white"
@@ -40,7 +40,7 @@ const Footer = () => {
 
         <div className="mt-6 border-t border-gray-500 pt-4 text-center">
           <p className="text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} Memorite. All Rights Reserved.
+            &copy; 2025 Memorite. All Rights Reserved.
           </p>
         </div>
       </div>
