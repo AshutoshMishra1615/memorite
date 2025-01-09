@@ -6,7 +6,7 @@ const Play = () => {
   const [clickedCards, setClickedCards] = useState([]);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
-  const [showModal, setShowModal] = useState(false);
+  const [showGameOver, setShowGameOver] = useState(false);
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -47,7 +47,7 @@ const Play = () => {
     const clickedCard = shuffledPokemon.find((card) => card.tileId === id);
 
     if (clickedCards.includes(clickedCard.name)) {
-      setShowModal(true);
+      setShowGameOver(true);
       setHighScore(Math.max(score, highScore));
       setClickedCards([]);
     } else {
@@ -59,7 +59,7 @@ const Play = () => {
   };
 
   const restartGame = () => {
-    setShowModal(false);
+    setShowGameOver(false);
     setScore(0);
     setClickedCards([]);
     shufflePokemon(pokemon);
@@ -81,7 +81,7 @@ const Play = () => {
           {shuffledPokemon.map((poke) => (
             <div
               key={poke.tileId}
-              className="bg-white shadow-lg rounded-lg p-4 cursor-pointer transition-transform duration-200 hover:scale-125"
+              className="bg-white shadow-lg rounded-lg p-4 cursor-pointer md:transition-transform md:duration-200 md:hover:scale-125"
               onClick={() => handleCardClick(poke.tileId)}
             >
               <img
@@ -97,7 +97,7 @@ const Play = () => {
         </div>
       </div>
 
-      {showModal && (
+      {showGameOver && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-8 rounded-lg shadow-lg text-center">
             <h2 className="text-2xl font-bold mb-4">Game Over!</h2>
