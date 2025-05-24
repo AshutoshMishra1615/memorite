@@ -7,12 +7,13 @@ const Play = () => {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [showGameOver, setShowGameOver] = useState(false);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPokemon = async () => {
       try {
         const response = await fetch(
-          "https://pokeapi.co/api/v2/pokemon?limit=12"
+          "https://pokeapi.co/api/v2/pokemon?limit=500"
         );
         const data = await response.json();
 
@@ -24,7 +25,8 @@ const Play = () => {
         );
 
         setPokemon(detailedPokemon);
-        shufflePokemon(detailedPokemon);
+        shufflePokemon(detailedPokemon, []);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching Pokémon data:", error);
       }
@@ -33,14 +35,38 @@ const Play = () => {
     fetchPokemon();
   }, []);
 
-  const shufflePokemon = (pokemonList) => {
-    const shuffled = [...pokemonList]
+  const shufflePokemon = (pokemonList, clickedCardNames) => {
+    const clickedPokemonObjects = pokemonList.filter((poke) =>
+      clickedCardNames.includes(poke.name)
+    );
+
+    const unclickedPokemon = pokemonList.filter(
+      (poke) => !clickedCardNames.includes(poke.name)
+    );
+
+    const totalCards = 12;
+
+    const minClickedCards = Math.min(3, clickedPokemonObjects.length);
+    const clickedToInclude = clickedPokemonObjects
       .sort(() => Math.random() - 0.5)
+      .slice(0, minClickedCards);
+
+    const remainingSlots = totalCards - clickedToInclude.length;
+    const unclickedToInclude = unclickedPokemon
+      .sort(() => Math.random() - 0.5)
+      .slice(0, remainingSlots);
+
+    const finalCards = [...clickedToInclude, ...unclickedToInclude]
       .map((poke, index) => ({
         ...poke,
         tileId: index,
-      }));
-    setShuffledPokemon(shuffled);
+      }))
+      .sort(() => Math.random() - 0.5);
+
+    setShuffledPokemon(finalCards);
+    console.log(
+      `Clicked cards included: ${clickedToInclude.length}, Total cards: ${finalCards.length}`
+    );
   };
 
   const handleCardClick = (id) => {
@@ -49,20 +75,19 @@ const Play = () => {
     if (clickedCards.includes(clickedCard.name)) {
       setShowGameOver(true);
       setHighScore(Math.max(score, highScore));
-      setClickedCards([]);
     } else {
-      setClickedCards([...clickedCards, clickedCard.name]);
+      const newClickedCards = [...clickedCards, clickedCard.name];
+      setClickedCards(newClickedCards);
       setScore(score + 1);
+      shufflePokemon(pokemon, newClickedCards);
     }
-
-    shufflePokemon(pokemon);
   };
 
   const restartGame = () => {
     setShowGameOver(false);
     setScore(0);
     setClickedCards([]);
-    shufflePokemon(pokemon);
+    shufflePokemon(pokemon, []);
   };
 
   return (
@@ -76,25 +101,34 @@ const Play = () => {
           <p className="text-xl text-gray-700">Score: {score}</p>
           <p className="text-xl text-gray-700">High Score: {highScore}</p>
         </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          {shuffledPokemon.map((poke) => (
-            <div
-              key={poke.tileId}
-              className="bg-white shadow-lg rounded-lg p-4 cursor-pointer md:transition-transform md:duration-200 md:hover:scale-125"
-              onClick={() => handleCardClick(poke.tileId)}
-            >
-              <img
-                src={poke.sprites.front_default}
-                alt={poke.name}
-                className="w-20 mx-auto"
-              />
-              <p className="text-center text-lg font-semibold text-slate-700 capitalize mt-2">
-                {poke.name}
-              </p>
-            </div>
-          ))}
-        </div>
+        {Loading ? (
+          <div>
+            <img
+              src="./loading.gif"
+              alt="Loading..."
+              className="w-full mix-blend-darken mx-auto mb-4 "
+            />
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            {shuffledPokemon.map((poke) => (
+              <div
+                key={poke.tileId}
+                className="bg-white shadow-lg rounded-lg p-4 cursor-pointer md:transition-transform md:duration-200 md:hover:scale-125"
+                onClick={() => handleCardClick(poke.tileId)}
+              >
+                <img
+                  src={poke.sprites.front_default}
+                  alt={poke.name}
+                  className="w-20 mx-auto"
+                />
+                <p className="text-center text-lg font-semibold text-slate-700 capitalize mt-2">
+                  {poke.name}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {showGameOver && (
