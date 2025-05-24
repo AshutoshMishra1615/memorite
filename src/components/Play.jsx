@@ -46,7 +46,12 @@ const Play = () => {
 
     const totalCards = 12;
 
-    const minClickedCards = Math.min(3, clickedPokemonObjects.length);
+    const minClickedCards = Math.min(
+      Math.floor(
+        Math.random() * (Math.floor(10) - Math.ceil(5)) + Math.ceil(5)
+      ),
+      clickedPokemonObjects.length
+    );
     const clickedToInclude = clickedPokemonObjects
       .sort(() => Math.random() - 0.5)
       .slice(0, minClickedCards);
