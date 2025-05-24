@@ -47,9 +47,7 @@ const Play = () => {
     const totalCards = 12;
 
     const minClickedCards = Math.min(
-      Math.floor(
-        Math.random() * (Math.floor(10) - Math.ceil(5)) + Math.ceil(5)
-      ),
+      Math.floor(Math.random() * (Math.floor(8) - Math.ceil(5)) + Math.ceil(5)),
       clickedPokemonObjects.length
     );
     const clickedToInclude = clickedPokemonObjects
